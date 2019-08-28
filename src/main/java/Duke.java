@@ -1,18 +1,13 @@
-//import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
 
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
 
+        ArrayList<String> info = new ArrayList<String>();
         boolean end = false;
 
         while(!end)
@@ -20,14 +15,28 @@ public class Duke {
             Scanner in = new Scanner(System.in);
             String s = in.nextLine();
 
-            if(s.equals("bye"))
+
+            if(s.equals("list"))
+            {
+                int x = 1;
+
+                for(String i: info)
+                {
+                    System.out.println(x +". "+ i);
+                    x++;
+                }
+            }
+
+            else if(s.equals("bye"))
             {
                 System.out.println("Bye. Hope to see you again soon!");
                 end = true;
             }
-            else
+            else {
+                info.add(s);
+                System.out.print("added: ");
                 System.out.println(s);
-
+            }
         }
     }
 
