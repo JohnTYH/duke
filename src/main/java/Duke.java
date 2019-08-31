@@ -53,12 +53,29 @@ public class Duke {
             else if(s[0].equals("deadline"))
             {
                 try{
+                    String[] Date;
+                    String[] Months = new String[] {"January", "February", "March", "April", "May", "June", "July", "August",
+                            "September", "October", "November", "December"};
                     String[] DLarray = s[1].split("/by ");
                     Deadline obj = new Deadline(DLarray[0], DLarray[1]);
-                    info.add(obj);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + obj.toString());
-                    System.out.println("Now you have " + Integer.toString(Task.getTask()) + " task(s) in the list.");
+                    if(DLarray[1].contains("/"))
+                    {
+                        String[] getDate = DLarray[1].split("/");
+                        if(getDate.length == 3)
+                        {
+                            info.add(obj);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(" " + obj.toString());
+                            System.out.println("Now you have " + Integer.toString(Task.getTask()) + " (by: " + getDate[0] +" " + Months[Integer.valueOf(getDate[1]) - 1] + " " + getDate[2] + ")" + " task(s) in the list.");
+                         //   System.out.print(getDate[0] +" " + Months[Integer.valueOf(getDate[1]) - 1] + " " + getDate[2]);
+                        }
+                    }
+                    else {
+                        info.add(obj);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(" " + obj.toString());
+                        System.out.println("Now you have " + Integer.toString(Task.getTask()) + " task(s) in the list.");
+                        }
                     }
                 catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Invalid. Please use '/by' keyword eg. (return book /by 1pm)");
@@ -74,7 +91,7 @@ public class Duke {
                     info.add(obj);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + obj.toString());
-                    System.out.println("Now you have " + Integer.toString(Task.getTask()) + " task(s) in the list.");
+                    System.out.println("Now you have " + info.size() + " task(s) in the list.");
                     }
                 catch(ArrayIndexOutOfBoundsException e) {
                     System.out.println("Invalid. Please use '/at' keyword eg. (event /at 1pm)");
@@ -96,7 +113,26 @@ public class Duke {
                 }
             }
 
+            else if(s[0].equals("delete"))
+            {
+               // try {
+                    if(donewrong)
+                        System.out.println("Invalid. Please add a number");
+                    else {
+                        int b = Integer.valueOf(s[1]);
+                        if(b < 1 || b > info.size())
+                            System.out.println("Invalid. Please try again.");
+                        else
+                        {
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(info.get(b-1).toString());
+                            info.remove(b-1);
+                            System.out.println("Now you have " + info.size() + " task(s) in the list.");
 
+                        }
+                    }
+               // }
+            }
 
             else if(s[0].equals("done")) {
                 try {
