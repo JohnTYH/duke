@@ -1,6 +1,18 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.PrintStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+
 
 public class Duke {
 
@@ -14,6 +26,56 @@ public class Duke {
         ArrayList<Task> info = new ArrayList<Task>();
 
         boolean end = false;
+
+//        try {
+//            FileReader fr = new FileReader("data.txt");
+//            BufferedReader br = new BufferedReader(fr);
+//            String line_X;
+//            while ((line_X = br.readLine()) != null) {
+//
+//                String[] temp = line_X.split("|", 3);
+//                if (temp[0].equals("D")) {
+//                    Date newDate = new Date();
+//                    try {
+//                        String[] temp2 = temp[2].split("by:", 2);
+//                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
+//                        newDate = format.parse(temp2[0]);
+//                        // System.out.println(newDate);
+//                        Deadline obj = new Deadline(temp2[0], newDate);
+//                        if(temp[1].equals("1"))
+//                            obj.markAsDone();
+//                        info.add(obj);
+//                    } catch (ParseException e) {
+//                        System.out.println("Invalid date format!");
+//                    }
+//                }
+//                else if (temp[0].equals("T")) {
+//                    Todo obj = new Todo(temp[2]);
+//                    if (temp[1].equals("1"))
+//                    obj.markAsDone();
+//                    info.add(obj);
+//                   // System.out.println(obj.toString());
+//                }
+//                if (temp[0].equals("E")) {
+//                    Date newDate = new Date();
+//                    try {
+//                        String[] temp2 = temp[2].split("by:", 2);
+//                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
+//                        newDate = format.parse(temp2[0]);
+//                        // System.out.println(newDate);
+//                        Event obj = new Event(temp2[0], newDate);
+//                        if(temp[1].equals("1"))
+//                            obj.markAsDone();
+//                        info.add(obj);
+//                    } catch (ParseException e) {
+//                        System.out.println("Invalid date format!");
+//                    }
+//                }
+//
+//            }
+//            } catch (IOException e) {
+//                System.out.println(" file not found, creating file...");
+//            }
 
 
         while(!end)
@@ -49,52 +111,128 @@ public class Duke {
                 System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
             }
             }
-
-            else if(s[0].equals("deadline"))
+            else if(s[0].equals("find"))
             {
-                try{
-                    String[] Date;
-                    String[] Months = new String[] {"January", "February", "March", "April", "May", "June", "July", "August",
-                            "September", "October", "November", "December"};
-                    String[] DLarray = s[1].split("/by ");
-                    Deadline obj = new Deadline(DLarray[0], DLarray[1]);
-                    if(DLarray[1].contains("/"))
+               // try {
+                    int a = 1;
+                    System.out.println("Here are matching tasks in your list:");
+                    for(int i=0; i<info.size(); i++)
                     {
-                        String[] getDate = DLarray[1].split("/");
-                        if(getDate.length == 3)
+                        if(info.get(i).description.contains(s[1]))
                         {
-                            info.add(obj);
-                            System.out.println("Got it. I've added this task:");
-                            System.out.println(" " + obj.toString());
-                            System.out.println("Now you have " + Integer.toString(Task.getTask()) + " (by: " + getDate[0] +" " + Months[Integer.valueOf(getDate[1]) - 1] + " " + getDate[2] + ")" + " task(s) in the list.");
-                         //   System.out.print(getDate[0] +" " + Months[Integer.valueOf(getDate[1]) - 1] + " " + getDate[2]);
+                           System.out.println(a+". " + info.get(i).toString());
+                           a++;
                         }
                     }
-                    else {
-                        info.add(obj);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(" " + obj.toString());
-                        System.out.println("Now you have " + Integer.toString(Task.getTask()) + " task(s) in the list.");
-                        }
-                    }
-                catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Invalid. Please use '/by' keyword eg. (return book /by 1pm)");
-                }
-
+              //  }
             }
-
-            else if(s[0].equals("event"))
+            else if(s[0].equals("load"))
             {
                 try {
-                    String[] Earray = s[1].split("/at ");
-                    Event obj = new Event(Earray[0], Earray[1]);
+                    FileReader fr = new FileReader("data.txt");
+                    BufferedReader br = new BufferedReader(fr);
+                    String line_X;
+                    while ((line_X = br.readLine()) != null) {
+
+                        String[] temp = line_X.split("|", 3);
+                        if (temp[0].equals("D")) {
+                            Date newDate = new Date();
+                            try {
+                                String[] temp2 = temp[2].split("by:", 2);
+                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
+                                newDate = format.parse(temp2[0]);
+                                // System.out.println(newDate);
+                                Deadline obj = new Deadline(temp2[0], newDate);
+                                if(temp[1].equals("1"))
+                                    obj.markAsDone();
+                                info.add(obj);
+                            } catch (ParseException e) {
+                                System.out.println("Invalid date format!");
+                            }
+                        }
+                        else if (temp[0].equals("T")) {
+                            Todo obj = new Todo(temp[2]);
+                            if (temp[1].equals("1"))
+                                obj.markAsDone();
+                            info.add(obj);
+                            // System.out.println(obj.toString());
+                        }
+                        if (temp[0].equals("E")) {
+                            Date newDate = new Date();
+                            try {
+                                String[] temp2 = temp[2].split("by:", 2);
+                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
+                                newDate = format.parse(temp2[0]);
+                                // System.out.println(newDate);
+                                Event obj = new Event(temp2[0], newDate);
+                                if(temp[1].equals("1"))
+                                    obj.markAsDone();
+                                info.add(obj);
+                            } catch (ParseException e) {
+                                System.out.println("Invalid date format!");
+                            }
+                        }
+                        br.close();
+                    }
+                } catch (IOException e) {
+                    System.out.println(" file not found, creating file...");
+                }
+            }
+            else if(s[0].equals("deadline")) {
+                //   try{
+                String[] DLarray = s[1].split("/by ");
+
+                Date newDate = new Date();
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
+                    newDate = format.parse(DLarray[1]);
+                   // System.out.println(newDate);
+                    Deadline obj = new Deadline(DLarray[0], newDate);
                     info.add(obj);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + obj.toString());
-                    System.out.println("Now you have " + info.size() + " task(s) in the list.");
+                    System.out.println("Now you have " + Integer.toString(Task.getTask()) + " task(s) in the list.");
+
+                } catch (ParseException e) {
+                    System.out.println("Invalid date format!");
+                }
+            }
+
+          /*     else if (s[0].equals("save"))
+            {
+                try {
+                    FileWriter writer = new FileWriter("data.txt");
+                    BufferedWriter bw = new BufferedWriter(writer);
+                 //   Date date = new Date();
+                   // writer.write("List as of " + date.toString() + "\n");
+                    for (int i = 0; i < info.size(); i++) {
+                        writer.write((i+1) + ". " + info.get(i).toString() + "\n");
                     }
-                catch(ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Invalid. Please use '/at' keyword eg. (event /at 1pm)");
+                    writer.close();
+                    System.out.println("Saved to data.txt");
+                }
+                catch (IOException e)
+                {
+                    System.out.println("Unable to save.");
+                }
+
+            } */
+
+            else if(s[0].equals("event"))
+            {
+                String[] Earray = s[1].split("/at ");
+                Date newDate = new Date();
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
+                    newDate = format.parse(Earray[1]);
+                    Event obj = new Event(Earray[0], newDate);
+                    info.add(obj);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(" " + obj.toString());
+                    System.out.println("Now you have " + Integer.toString(Task.getTask()) + " task(s) in the list.");
+
+                } catch (ParseException e) {
+                    System.out.println("Invalid date format!");
                 }
             }
 
@@ -161,6 +299,21 @@ public class Duke {
             }
             else if(s[0].equals("bye"))
             {
+                try {
+                    FileWriter writer = new FileWriter("data.txt");
+                    BufferedWriter bw = new BufferedWriter(writer);
+                    for (int i = 0; i < info.size(); i++) {
+                        writer.write(info.get(i).toString() + "\n");
+                        System.out.print(info.get(i).toSave() + "\n");
+                    }
+                    writer.close();
+                    System.out.println("Saved to data.txt");
+                }
+                catch (IOException e)
+                {
+                    System.out.println("Unable to save.");
+                }
+
                 System.out.println("Bye. Hope to see you again soon!");
                 end = true;
             }
