@@ -94,9 +94,7 @@ public class Duke {
             if(s[0].equals("todo")) {
 
                 try {
-               // if (donewrong) {
-                 //   System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
-              //  } else {
+
                     String[] todoArray = ss.split(" ", 2);
                     Todo obj = new Todo(todoArray[1]);
                     info.add(obj);
@@ -105,7 +103,6 @@ public class Duke {
                     System.out.println(" " + obj.toString());
                     System.out.println("Now you have " + Integer.toString(Task.getTask()) + " task(s) in the list.");
 
-                //}
             }
             catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
@@ -186,7 +183,6 @@ public class Duke {
                 try {
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
                     newDate = format.parse(DLarray[1]);
-                   // System.out.println(newDate);
                     Deadline obj = new Deadline(DLarray[0], newDate);
                     info.add(obj);
                     System.out.println("Got it. I've added this task:");
@@ -197,26 +193,7 @@ public class Duke {
                     System.out.println("Invalid date format!");
                 }
             }
-
-          /*     else if (s[0].equals("save"))
-            {
-                try {
-                    FileWriter writer = new FileWriter("data.txt");
-                    BufferedWriter bw = new BufferedWriter(writer);
-                 //   Date date = new Date();
-                   // writer.write("List as of " + date.toString() + "\n");
-                    for (int i = 0; i < info.size(); i++) {
-                        writer.write((i+1) + ". " + info.get(i).toString() + "\n");
-                    }
-                    writer.close();
-                    System.out.println("Saved to data.txt");
-                }
-                catch (IOException e)
-                {
-                    System.out.println("Unable to save.");
-                }
-
-            } */
+            
 
             else if(s[0].equals("event"))
             {
