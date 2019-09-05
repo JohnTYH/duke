@@ -123,7 +123,7 @@ public class Duke {
                     }
               //  }
             }
-            else if(s[0].equals("load"))
+     /*       else if(s[0].equals("load"))
             {
                 try {
                     FileReader fr = new FileReader("data.txt");
@@ -175,6 +175,8 @@ public class Duke {
                     System.out.println(" file not found, creating file...");
                 }
             }
+            */
+
             else if(s[0].equals("deadline")) {
                 //   try{
                 String[] DLarray = s[1].split("/by ");
