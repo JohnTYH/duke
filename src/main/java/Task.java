@@ -37,7 +37,7 @@ public class Task {
     }
     public String toSave()
     {
-        if( isDone)
+        if(isDone)
             return "1|" + this.description;
         else
             return "0|" + this.description;

@@ -8,18 +8,16 @@ public class Event extends Task {
     protected String at;
     protected Date newDate;
 
-    public Event(String description, Date newDate) {
+    public Event(String description, Date newDate, String at) {
         super(description);
         this.newDate = newDate;
+        this.at = at;
     }
 
     @Override
     public String toSave() {
-        StringBuffer stringBuffer = new StringBuffer();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d MMMM YYYY, h:mmaa");
-        simpleDateFormat.format(newDate, stringBuffer, new FieldPosition(0));
-        return "E|" + super.toSave() + " at:" + stringBuffer;
+        return "E|" + super.toSave() + " at: " + at;
     }
 
     public String toString() {

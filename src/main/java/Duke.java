@@ -27,56 +27,66 @@ public class Duke {
 
         boolean end = false;
 
-//        try {
-//            FileReader fr = new FileReader("data.txt");
-//            BufferedReader br = new BufferedReader(fr);
-//            String line_X;
-//            while ((line_X = br.readLine()) != null) {
-//
-//                String[] temp = line_X.split("|", 3);
-//                if (temp[0].equals("D")) {
-//                    Date newDate = new Date();
-//                    try {
-//                        String[] temp2 = temp[2].split("by:", 2);
-//                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
-//                        newDate = format.parse(temp2[0]);
-//                        // System.out.println(newDate);
-//                        Deadline obj = new Deadline(temp2[0], newDate);
-//                        if(temp[1].equals("1"))
-//                            obj.markAsDone();
-//                        info.add(obj);
-//                    } catch (ParseException e) {
-//                        System.out.println("Invalid date format!");
-//                    }
-//                }
-//                else if (temp[0].equals("T")) {
-//                    Todo obj = new Todo(temp[2]);
-//                    if (temp[1].equals("1"))
-//                    obj.markAsDone();
-//                    info.add(obj);
-//                   // System.out.println(obj.toString());
-//                }
-//                if (temp[0].equals("E")) {
-//                    Date newDate = new Date();
-//                    try {
-//                        String[] temp2 = temp[2].split("by:", 2);
-//                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
-//                        newDate = format.parse(temp2[0]);
-//                        // System.out.println(newDate);
-//                        Event obj = new Event(temp2[0], newDate);
-//                        if(temp[1].equals("1"))
-//                            obj.markAsDone();
-//                        info.add(obj);
-//                    } catch (ParseException e) {
-//                        System.out.println("Invalid date format!");
-//                    }
-//                }
-//
-//            }
-//            } catch (IOException e) {
-//                System.out.println(" file not found, creating file...");
-//            }
 
+                try {
+                    FileReader fr = new FileReader("C:\\Users\\Johnt.DESKTOP-H969RCO\\Documents\\GitHub\\duke\\Data\\Duke.txt");
+                    BufferedReader br = new BufferedReader(fr);
+                    String line_X;
+                    while ((line_X = br.readLine()) != null) {
+
+                        String[] temp = line_X.split("|", 3);
+                        String[] tempp = temp[2].split("",3);
+//                        System.out.println(temp[0]);
+//                        System.out.println(temp[1]);
+//                        System.out.println(temp[2]);
+//
+//                        System.out.println(tempp[0]);
+//                        System.out.println(tempp[1]);
+//                        System.out.println(tempp[2]);
+
+
+                        if (temp[0].equals("D")) {
+                            Date newDate = new Date();
+                            try {
+                                String[] temp2 = tempp[2].split("by: ", 2);
+                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
+                                newDate = format.parse(temp2[0]);
+                                // System.out.println(newDate);
+                                Deadline obj = new Deadline(temp2[0], newDate,temp2[1]);
+                                if(temp[1].equals("1"))
+                                    obj.markAsDone();
+                                info.add(obj);
+                            } catch (ParseException e) {
+                                System.out.println("Invalid date format!");
+                            }
+                        }
+                        else if (temp[0].equals("T")) {
+                            Todo obj = new Todo(tempp[2]);
+                            if (tempp[0].equals("1"))
+                                obj.markAsDone();
+                            info.add(obj);
+                            // System.out.println(obj.toString());
+                        }
+                        if (temp[0].equals("E")) {
+                            Date newDate = new Date();
+                            try {
+                                String[] temp2 = tempp[2].split("at: ", 2);
+                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
+                                newDate = format.parse(temp2[0]);
+                                // System.out.println(newDate);
+                                Event obj = new Event(temp2[0], newDate,temp2[1]);
+                                if(temp[1].equals("1"))
+                                    obj.markAsDone();
+                                info.add(obj);
+                            } catch (ParseException e) {
+                                System.out.println("Invalid date format!");
+                            }
+                        }
+                        br.close();
+                    }
+                } catch (IOException e) {
+                    System.out.println(" file not found, creating file...");
+                }
 
         while(!end)
         {
@@ -123,58 +133,7 @@ public class Duke {
                     }
               //  }
             }
-     /*       else if(s[0].equals("load"))
-            {
-                try {
-                    FileReader fr = new FileReader("data.txt");
-                    BufferedReader br = new BufferedReader(fr);
-                    String line_X;
-                    while ((line_X = br.readLine()) != null) {
-
-                        String[] temp = line_X.split("|", 3);
-                        if (temp[0].equals("D")) {
-                            Date newDate = new Date();
-                            try {
-                                String[] temp2 = temp[2].split("by:", 2);
-                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
-                                newDate = format.parse(temp2[0]);
-                                // System.out.println(newDate);
-                                Deadline obj = new Deadline(temp2[0], newDate);
-                                if(temp[1].equals("1"))
-                                    obj.markAsDone();
-                                info.add(obj);
-                            } catch (ParseException e) {
-                                System.out.println("Invalid date format!");
-                            }
-                        }
-                        else if (temp[0].equals("T")) {
-                            Todo obj = new Todo(temp[2]);
-                            if (temp[1].equals("1"))
-                                obj.markAsDone();
-                            info.add(obj);
-                            // System.out.println(obj.toString());
-                        }
-                        if (temp[0].equals("E")) {
-                            Date newDate = new Date();
-                            try {
-                                String[] temp2 = temp[2].split("by:", 2);
-                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
-                                newDate = format.parse(temp2[0]);
-                                // System.out.println(newDate);
-                                Event obj = new Event(temp2[0], newDate);
-                                if(temp[1].equals("1"))
-                                    obj.markAsDone();
-                                info.add(obj);
-                            } catch (ParseException e) {
-                                System.out.println("Invalid date format!");
-                            }
-                        }
-                        br.close();
-                    }
-                } catch (IOException e) {
-                    System.out.println(" file not found, creating file...");
-                }
-            }
+     /*
             */
 
             else if(s[0].equals("deadline")) {
@@ -185,7 +144,7 @@ public class Duke {
                 try {
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
                     newDate = format.parse(DLarray[1]);
-                    Deadline obj = new Deadline(DLarray[0], newDate);
+                    Deadline obj = new Deadline(DLarray[0], newDate, DLarray[1]);
                     info.add(obj);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + obj.toString());
@@ -204,7 +163,7 @@ public class Duke {
                 try {
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
                     newDate = format.parse(Earray[1]);
-                    Event obj = new Event(Earray[0], newDate);
+                    Event obj = new Event(Earray[0], newDate, Earray[1]);
                     info.add(obj);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + obj.toString());
@@ -279,11 +238,11 @@ public class Duke {
             else if(s[0].equals("bye"))
             {
                 try {
-                    FileWriter writer = new FileWriter("data.txt");
+                    FileWriter writer = new FileWriter("C:\\Users\\Johnt.DESKTOP-H969RCO\\Documents\\GitHub\\duke\\Data\\Duke.txt");
                     BufferedWriter bw = new BufferedWriter(writer);
                     for (int i = 0; i < info.size(); i++) {
-                        writer.write(info.get(i).toString() + "\n");
-                        System.out.print(info.get(i).toSave() + "\n");
+                        writer.write(info.get(i).toSave() + "\n");
+                    //    System.out.print(info.get(i).toSave() + "\n");
                     }
                     writer.close();
                     System.out.println("Saved to data.txt");
