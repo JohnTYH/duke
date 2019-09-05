@@ -8,9 +8,10 @@ public class Deadline extends Task {
     protected String by;
     protected Date newDate;
 
-    public Deadline(String description, Date newDate) {
+    public Deadline(String description, Date newDate, String by) {
         super(description);
         this.newDate = newDate;
+        this.by = by;
     }
 
     @Override
@@ -23,10 +24,7 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + stringBuffer + ")";
     }
     public String toSave() {
-        StringBuffer stringBuffer = new StringBuffer();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d MMMM YYYY, h:mmaa");
-        simpleDateFormat.format(newDate, stringBuffer, new FieldPosition(0));
-        return "D|" + super.toSave() + " by:" + stringBuffer;
+        return "D|" + super.toSave() + " by: " + by;
     }
 }
