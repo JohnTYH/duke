@@ -87,10 +87,11 @@ public class Duke {
                 } catch (IOException e) {
                     System.out.println(" file not found, creating file...");
                 }
+        Scanner in = new Scanner(System.in);
 
         while(!end)
         {
-            Scanner in = new Scanner(System.in);
+
             String ss = in.nextLine();
 
 

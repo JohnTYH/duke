@@ -1,2 +1,15 @@
 Hello! I'm Duke
 What can I do for you?
+ file not found, creating file...
+Got it. I've added this task:
+ [T][?] asd
+Now you have 2 task(s) in the list.
+Got it. I've added this task:
+ [D][?] qwe  (by: 12 December 2012, 12:34PM)
+Now you have 3 task(s) in the list.
+Here are the tasks in your list:
+ 1. [T][?] asd
+ 2. [T][?] asd
+ 3. [D][?] qwe  (by: 12 December 2012, 12:34PM)
+Saved to data.txt
+Bye. Hope to see you again soon!
