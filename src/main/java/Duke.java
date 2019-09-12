@@ -29,13 +29,13 @@ public class Duke {
 
 
                 try {
-                    FileReader fr = new FileReader("C:\\Users\\Johnt.DESKTOP-H969RCO\\Documents\\GitHub\\duke\\Data\\Duke.txt");
-                    BufferedReader br = new BufferedReader(fr);
+                    FileReader fr = new FileReader("C:\\Users\\Johnt.DESKTOP-H969RCO\\Documents\\GitHub\\duke\\Data\\Duke.txt"); //Load from this local address
+                    BufferedReader br = new BufferedReader(fr); //Use buffered reader, file reader to load.
                     String line_X;
                     while ((line_X = br.readLine()) != null) {
 
-                        String[] temp = line_X.split("|", 3);
-                        String[] tempp = temp[2].split("",3);
+                        String[] temp = line_X.split("|", 3); //Temp[0] represents the type of event "D/E/T"
+                        String[] tempp = temp[2].split("",3); //Tempp[2] represents the content to be saved.
 //                        System.out.println(temp[0]);
 //                        System.out.println(temp[1]);
 //                        System.out.println(temp[2]);
@@ -48,15 +48,15 @@ public class Duke {
                         if (temp[0].equals("D")) {
                             Date newDate = new Date();
                             try {
-                                String[] temp2 = tempp[2].split("by: ", 2);
+                                String[] temp2 = tempp[2].split("by: ", 2); //split date from content.
                                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
                                 newDate = format.parse(temp2[0]);
                                 // System.out.println(newDate);
                                 Deadline obj = new Deadline(temp2[0], newDate,temp2[1]);
                                 if(temp[1].equals("1"))
                                     obj.markAsDone();
-                                info.add(obj);
-                            } catch (ParseException e) {
+                                info.add(obj); //push object
+                            } catch (ParseException e) { //catch if date format is wrong.
                                 System.out.println("Invalid date format!");
                             }
                         }
@@ -64,25 +64,25 @@ public class Duke {
                             Todo obj = new Todo(tempp[2]);
                             if (tempp[0].equals("1"))
                                 obj.markAsDone();
-                            info.add(obj);
+                            info.add(obj); // push object
                             // System.out.println(obj.toString());
                         }
-                        if (temp[0].equals("E")) {
+                        else if (temp[0].equals("E")) {
                             Date newDate = new Date();
                             try {
-                                String[] temp2 = tempp[2].split("at: ", 2);
+                                String[] temp2 = tempp[2].split("at: ", 2); //split date from content.
                                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy kkmm");
                                 newDate = format.parse(temp2[0]);
                                 // System.out.println(newDate);
                                 Event obj = new Event(temp2[0], newDate,temp2[1]);
                                 if(temp[1].equals("1"))
                                     obj.markAsDone();
-                                info.add(obj);
-                            } catch (ParseException e) {
+                                info.add(obj); //push object
+                            } catch (ParseException e) { //catch exception if date format is wrong.
                                 System.out.println("Invalid date format!");
                             }
                         }
-                        br.close();
+                        br.close(); //close reader
                     }
                 } catch (IOException e) {
                     System.out.println(" file not found, creating file...");
@@ -92,26 +92,26 @@ public class Duke {
         while(!end)
         {
 
-            String ss = in.nextLine();
+            String ss = in.nextLine(); //read in next input
 
 
-            String[] s = ss.split(" ",2);
+            String[] s = ss.split(" ",2); //split input for command.
             boolean donewrong = false;
             if(s.length == 1)
                 donewrong = true;
           // System.out.println(s[0]);
           // System.out.println(s[1]);
 
-            if(s[0].equals("todo")) {
+            if(s[0].equals("todo")) { //if command is todo
 
                 try {
 
-                    String[] todoArray = ss.split(" ", 2);
-                    Todo obj = new Todo(todoArray[1]);
-                    info.add(obj);
+                   // String[] todoArray = ss.split(" ", 2);
+                    Todo obj = new Todo(s[1]);
+                    info.add(obj); //push object.
 
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(" " + obj.toString());
+                    System.out.println(" " + obj.toString()); //print
                     System.out.println("Now you have " + Integer.toString(Task.getTask()) + " task(s) in the list.");
 
             }
@@ -119,23 +119,21 @@ public class Duke {
                 System.out.println(" ☹ OOPS!!! The description of a todo cannot be empty.");
             }
             }
-            else if(s[0].equals("find"))
+            else if(s[0].equals("find")) //if command is find
             {
                // try {
-                    int a = 1;
+                    int a = 1; //index start from 1
                     System.out.println("Here are matching tasks in your list:");
                     for(int i=0; i<info.size(); i++)
                     {
                         if(info.get(i).description.contains(s[1]))
                         {
-                           System.out.println(a+". " + info.get(i).toString());
-                           a++;
+                           System.out.println(a+". " + info.get(i).toString()); //print out index and info containing keyword
+                           a++; //increment index
                         }
                     }
               //  }
             }
-     /*
-            */
 
             else if(s[0].equals("deadline")) {
                 //   try{
