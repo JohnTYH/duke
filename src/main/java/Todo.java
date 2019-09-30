@@ -16,7 +16,7 @@ public class Todo extends Task {
 
     @Override
     /**
-     * toSave represents the saving format
+     * Represents the saving format
      * @return string to save
      */
     public String toSave() {
@@ -24,7 +24,7 @@ public class Todo extends Task {
     }
 
     /**
-     * toString represents the string to be printed to the user
+     * represents the string to be printed to the user
      * @return string to be printed by user.
      */
     public String toString() {
